@@ -6,6 +6,7 @@
     "type" : "git",
     "url" : "https://github.com/lugimax/jacpe-web-client.git"
   },
+  "license": "Apache-2.0",
   "dependencies": {
     "eslint": "^6.6.0",
     "eslint-plugin-react": "^7.16.0",
@@ -21,7 +22,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "eslint src/**"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -9,6 +9,11 @@ module.exports = {
         "Atomics": "readonly",
         "SharedArrayBuffer": "readonly"
     },
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -22,6 +27,7 @@ module.exports = {
     "rules": {
         quotes: ["warn", "double"],
         "eol-last": ["warn", "always"],
-        "no-trailing-spaces": ["warn"]
+        "no-trailing-spaces": ["warn"],
+        "max-len": ["warn", 120]
     }
 };

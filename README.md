@@ -20,6 +20,10 @@ For now, this is just a `create-react-app` project, so you can use default comma
 * `yarn start` — Start the development server.
 * `yarn build` — Create a production build.
 
+Some other commands:
+
+* `yarn lint` — Lint the project (ESLint)
+
 ### Contributing
 If you found a bug, or have any idea that you think fits this project, feel free to open an Issue.
 
