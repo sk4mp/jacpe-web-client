@@ -1,0 +1,90 @@
+#router > .route.dynamic-page {
+    display: flex;
+
+    padding: 8px;
+}
+
+/* Root panels container */
+#router > .route.dynamic-page > .root-panels-container {
+    width: 100%;
+
+    margin-right: 8px;
+}
+
+#router > .route.dynamic-page > .root-panels-container:last-of-type {
+    margin-right: 0;
+}
+
+/* Panel placeholder */
+#router > .route.dynamic-page .panel-placeholder {
+    display: none;
+
+    border-radius: 5px;
+}
+
+#router > .route.dynamic-page.edit-mode .panel-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 200px;
+
+    margin-bottom: 26px;
+
+    cursor: pointer;
+
+    background-color: var(--color-blue2-background);
+
+    transition: 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode .panel-placeholder > .add-icon {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    width: 40px;
+    height: 40px;
+
+    color: var(--color-blue2);
+    font-size: 16px;
+
+    border-radius: 50%;
+
+    background-color: rgba(25, 25, 255, 0.15);
+
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode .panel-placeholder:hover > .add-icon {
+    background-color: rgba(25, 25, 255, 0.25);
+    transform: scale(1.1);
+}
+
+#router > .route.dynamic-page.edit-mode .panel-placeholder:hover {
+    background-color: var(--color-blue2-background-hover);
+}
+
+/* Draggable Panel */
+#router > .route.dynamic-page .draggable-panel {
+    position: relative;
+
+    user-select: none;
+
+    padding: 12px;
+    margin-bottom: 8px;
+
+    font-size: 14px;
+
+    background-color: white;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+
+    border-radius: 4px;
+
+    transition: 0.2s;
+}
+
+/* ccontainer */
+#router > .route.dynamic-page .draggable-panel .draggable-component-ccontainer {
+    display: flex;
+}

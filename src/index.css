@@ -1,13 +1,59 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+
+    overflow: hidden;
+
+    font-family: "Roboto", sans-serif;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+#root {
+    display: flex;
+    flex-direction: column;
+
+    height: 100vh;
+}
+
+#content {
+    display: flex;
+    
+    height: 100%;
+}
+
+#router {
+    width: 100%;
+    
+    /* Screen height - top panel heigth */
+    height: calc(100vh - 50px);
+}
+
+#router > .route {
+    height: 100%;
+    overflow-y: auto;
+}
+
+:root {
+    --color-blue: #1919ff;
+    --color-blue-darker: #1515D1;
+    --color-blue2: #1744FF;
+    --color-blue3: #001774;
+
+    --color-blue-background: rgba(23, 68, 255, 0.1);
+    --color-blue-background-hover: rgba(23, 68, 255, 0.18);
+    --color-blue-background-active: rgba(23, 68, 255, 0.25);
+
+    --color-blue2-background: rgba(25, 25, 255, 0.1);
+    --color-blue2-background-hover: rgba(25, 25, 255, 0.18);
+    --color-blue2-background-active: rgba(25, 25, 255, 0.25);
+
+    --color-red: #e82000;
+    --color-red-lighter: #EC482E;
+    --color-red-darker: #BE1B00;
+
+    --color-red-background: rgba(232, 32, 0, 0.1);
+    --color-red-background-hover: rgba(232, 32, 0, 0.18);
+    --color-red-background-active: rgba(232, 32, 0, 0.25);
+
+    --color-gray95: hsl(0, 0%, 95%);
+    --color-gray90: hsl(0, 0%, 90%);
+    --color-gray85: hsl(0, 0%, 85%);
 }
