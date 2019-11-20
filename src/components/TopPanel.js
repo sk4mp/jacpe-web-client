@@ -26,10 +26,14 @@ class TopPanel extends React.Component {
                 <div className="middle"></div>
                 <div className="right">
                     <div className="buttons">
-                        <div className={"button ui-tooltip-container" + (this.props.store_editmode.active ? " active" : "")} onClick={ this.switchEditmode }>
+                        <div
+                        className={"button ui-tooltip-container" + (this.props.store_editmode.active ? " active" : "")}
+                        onClick={ this.switchEditmode } >
                             <i className="material-icons">edit</i>
 
-                            <div className="ui-tooltip bottom">{ this.props.store_editmode.active ? "Leave edit mode" : "Enter edit mode" }</div>
+                            <div className="ui-tooltip bottom">
+                                { this.props.store_editmode.active ? "Leave edit mode" : "Enter edit mode" }
+                            </div>
                         </div>
                     </div>
                     <div className="user-avatar"></div>

@@ -1,21 +1,46 @@
 import React from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-// TODO: @placeholder
-export default class DraggablePanel extends React.Component {
+class DraggablePanel extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            child_components: []
+        }
+    }
+
+    // Component mounted, get the config from `config` redux store
+    componentDidMount() {
+        const panel_config = this.props.store_config.panels[this.props.panel_id];
+
+        let new_state = this.state;
+
+        // Add child components
+        new_state.child_components = panel_config.child_components;
+
+        // Apply the new state
+        this.setState(new_state);
+    }
+
     render() {
         return (
-            <div className="draggable-panel">
-                <div className="ui-input-with-name">
-                    <div className="ui-input-name1">Some input</div>
-                    <input type="text" className="ui-input1" />
-                </div>
-
-                <button className="ui-button1 bigger red">discard</button>
-                <button className="ui-button1 bigger outlined red">action</button>
-                <button className="ui-button2">action</button>
-                <button className="ui-button1 bigger low-emp">action</button>
-                <button className="ui-button1 bigger">save</button>
+            <div className="draggable-panel" panel_id={ this.props.panel_id }>
+                { this.state.child_components }
             </div>
         )
     }
 }
+
+DraggablePanel.propTypes = {
+    panel_id: PropTypes.string.isRequired,
+
+    store_config: PropTypes.object.isRequired
+}
+
+function mapStateToProps(state) {
+    return { store_config: state.config };
+}
+
+export default connect(mapStateToProps)(DraggablePanel);

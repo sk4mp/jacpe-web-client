@@ -1,8 +1,10 @@
 import React from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
-import DraggablePanel from "./DraggablePanel";
+import { config_create_panel } from "../actions";
 
-export default class RootPanelContainer extends React.Component {
+class RootPanelContainer extends React.Component {
     constructor(props) {
         super(props);
 
@@ -14,12 +16,7 @@ export default class RootPanelContainer extends React.Component {
     }
 
     createNewPanel() {
-        // Create a new panel with random id
-        // TODO: @misc @placeholder This should be in a different file
-        // TODO: @misc Generate a random string rather than a number
-        const new_id = Math.floor(Math.random() * 9999999999).toString();
-
-        const new_panel = <DraggablePanel key={ new_id } panel_id={ new_id } />
+        const new_panel = config_create_panel(this.props.dispatch);
 
         this.setState({ child_panels: [...this.state.child_panels, new_panel] })
     }
@@ -36,3 +33,13 @@ export default class RootPanelContainer extends React.Component {
         )
     }
 }
+
+RootPanelContainer.propTypes = {
+    dispatch: PropTypes.func.isRequired
+}
+
+function mapStateToProps(state) {
+    return { store_editmode: state.edit_mode };
+}
+
+export default connect(mapStateToProps)(RootPanelContainer);

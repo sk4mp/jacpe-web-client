@@ -24,6 +24,7 @@ export default class App extends React.Component {
                     <div id="content">
                         <div id="router">
                             <Route path="/:page_id" component={ DynamicPage } />
+                            <Route path="*" component={ () => <div>Go to /something to see an exaple</div> } />
                         </div>
                     </div>
                 </Provider>
