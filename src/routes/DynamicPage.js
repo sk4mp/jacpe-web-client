@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 
 import RootPanelsContainer from "../components/RootPanelsContainer";
+import DraggableComponentsDrawer from "../components/DraggableComponentsDrawer";
 
 import "./DynamicPage.css";
 
@@ -13,6 +14,8 @@ class DynamicPage extends React.Component {
             <div className={ "route dynamic-page" + (this.props.store_editmode.active ? " edit-mode" : "") }>
                 <RootPanelsContainer />
                 <RootPanelsContainer />
+
+                <DraggableComponentsDrawer />
             </div>
         );
     }

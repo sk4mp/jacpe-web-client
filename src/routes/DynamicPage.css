@@ -1,6 +1,8 @@
 #router > .route.dynamic-page {
     display: flex;
 
+    box-sizing: border-box;
+
     padding: 8px;
 }
 
@@ -29,7 +31,9 @@
 
     height: 200px;
 
-    margin-bottom: 26px;
+    /* Should be at least a height of draggable components drawer */
+    /* TODO: @hack */
+    margin-bottom: 140px;
 
     cursor: pointer;
 
@@ -84,7 +88,99 @@
     transition: 0.2s;
 }
 
+#router > .route.dynamic-page .draggable-panel:empty {
+    height: 140px;
+}
+
 /* ccontainer */
 #router > .route.dynamic-page .draggable-panel .draggable-component-ccontainer {
     display: flex;
+}
+
+/* Draggable Components Drawer */
+#router > .route.dynamic-page > .draggable-components-drawer {
+    position: fixed;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100vw;
+
+    border-top: 1px solid var(--color-gray90);
+
+    background-color: white;
+
+    /* Hidden state */
+    transform: translateY(100%);
+    pointer-events: none;
+
+    transition: 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode > .draggable-components-drawer {
+    transform: translateY(0);
+    pointer-events: all;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container {
+    display: flex;
+
+    padding: 6px 6px 18px 6px;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item {
+    width: 140px;
+    
+    padding: 6px 8px;
+    margin-right: 4px;
+
+    cursor: grab;
+
+    border-radius: 5px;
+
+    transition: 0.2s;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item:hover {
+    background-color: var(--color-gray95);
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item > .component {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 80px;
+
+    pointer-events: none;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item > .component * {
+    user-select: none;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item > .name {
+    user-select: none;
+
+    color: hsl(0, 0%, 50%);
+    font-size: 13px;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item > .component > .components-container {
+    height: 35px;
+    width: 100px;
+
+    background-color: var(--color-blue2-background);
+    
+    border: 2px dashed var(--color-blue2);
+    border-radius: 5px;
+}
+
+#router > .route.dynamic-page > .draggable-components-drawer > .container > .item > .component > .components-container > div {
+    width: 50%;
+    height: 100%;
+
+    margin-left: -1px;
+
+    border-right: 2px dashed rgba(25, 25, 255, 0.35);
 }
