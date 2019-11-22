@@ -34,16 +34,17 @@ class DraggablePanel extends React.Component {
     }
 
     componentDidUpdate(prev_props) {
-        if(
-            prev_props.store_config.panels[this.props.panel_id] !== this.props.store_config.panels[this.props.panel_id]
-        ) {
-            // Get all child_components for this panel
-            let l = this.props.store_config.panels[this.props.panel_id].child_components.length;
+        // To make things a bit less messy
+        const store_panel = this.props.store_config.panels[this.props.panel_id];
 
+        // Panel config changed
+        if(prev_props.store_config.panels[this.props.panel_id] !== store_panel) {
+            // Get all child_components for this panel
+            const l = store_panel.child_components.length;
             const child_components = [];
 
-            while(l--) {
-                const component_id = this.props.store_config.panels[this.props.panel_id].child_components[l];
+            for(let i = 0; i < l; i++) {
+                const component_id = store_panel.child_components[i];
 
                 child_components.push(this.props.store_config.components[component_id].element);
             }
@@ -74,13 +75,14 @@ class DraggablePanel extends React.Component {
         // Get the component type from dataTransfer
         const component_type = e.dataTransfer.getData("text");
 
-        // Create component from type
-        const component = createDraggableComponentFromType(component_type);
+        // Create a new component from type
+        const new_component = createDraggableComponentFromType(component_type, this.props.panel_id);
 
-        // Check if component was reutrned (the function above returns false on error)
-        if(component) {
+        // Check if the new component was reutrned (the function above returns false on error)
+        if(new_component) {
             // Assign component to panel in redux store (which will cause this panel to rerender with a new component)
-            config_assign_component(component, this.props.store_config.panels[this.props.panel_id], this.props.dispatch)
+            config_assign_component(new_component, this.props.store_config.panels[this.props.panel_id],
+            this.props.dispatch);
         }
 
         this.setState({ dragOver: false });

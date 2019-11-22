@@ -2,10 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 export default class DC_Button extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         // TODO: @misc This is messy
         let className = "ui-button" + (this.props.type || "1");

@@ -1,6 +1,7 @@
 import {
     CONFIG_ADD_PANEL,
-    CONFIG_ADD_COMPONENT,
+    CONFIG_EDIT_COMPONENT,
+    CONFIG_COMPONENT_EDIT_CHILDREN,
     CONFIG_PANEL_ADD_COMPONENT
 } from "../actions";
 
@@ -34,10 +35,27 @@ export default function(state = INITIAL_STATE, action) {
         }
 
         // TODO: @performance Maybe we should do it in a different way
-        case CONFIG_ADD_COMPONENT: {
+        case CONFIG_EDIT_COMPONENT: {
             return {
                 ...state,
-                components: { ...state.components, [action.component.element.key]: action.component }
+                components: {
+                    ...state.components,
+                    [action.component_object.element.props.component_id]: action.component_object
+                }
+            }
+        }
+
+        // TODO: @performance Maybe we should do it in a different way
+        case CONFIG_COMPONENT_EDIT_CHILDREN: {
+            return {
+                ...state,
+                components: {
+                    ...state.components,
+                    [action.component_id]: {
+                        ...state.components[action.component_id],
+                        child_components: action.child_components
+                    }
+                }
             }
         }
 

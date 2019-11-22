@@ -29,10 +29,16 @@ export function config_panel_add_component(panel_id, component_id, dispatch) {
     dispatch({ type: CONFIG_PANEL_ADD_COMPONENT, panel_id, component_id });
 }
 
-// Add component to the store
-export const CONFIG_ADD_COMPONENT = "CONFIG_ADD_COMPONENT";
-export function config_add_component(component, dispatch) {
-    dispatch({ type: CONFIG_ADD_COMPONENT, component });
+// Add/edit component in the store
+export const CONFIG_EDIT_COMPONENT = "CONFIG_EDIT_COMPONENT";
+export function config_edit_component(component_object, dispatch) {
+    dispatch({ type: CONFIG_EDIT_COMPONENT, component_object });
+}
+
+// Set children for a component (used in DC_Container)
+export const CONFIG_COMPONENT_EDIT_CHILDREN = "CONFIG_COMPONENT_EDIT_CHILDREN";
+export function config_component_edit_children(component_id, child_components, dispatch) {
+    dispatch({ type: CONFIG_COMPONENT_EDIT_CHILDREN, component_id, child_components });
 }
 
 // Create a new panel, add to `config` redux store and return a React element
@@ -62,6 +68,6 @@ export function config_assign_component(component, panel, dispatch) {
     }
 
     // TODO: @misc not sure if this is the best way to do this
-    dispatch({ type: CONFIG_ADD_COMPONENT, component: component_object });
+    dispatch({ type: CONFIG_EDIT_COMPONENT, component_object });
     dispatch({ type: CONFIG_PANEL_ADD_COMPONENT, panel_id: panel.id, component_id: component.props.component_id });
 }

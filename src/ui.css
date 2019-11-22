@@ -68,6 +68,10 @@
     margin-top: 0;
 }
 
+.ui-input-with-name:last-child {
+    margin-bottom: 0;
+}
+
 /* Input */
 input.ui-input1 {
     padding: 6px 10px;
@@ -98,6 +102,9 @@ input.ui-input1.invalid:focus {
 /* Button 1 */
 .ui-button1 {
     position: relative;
+    display: block;
+
+    margin: 6px 0;
 
     padding: 7px 15px;
     margin-right: 10px;
@@ -125,6 +132,16 @@ input.ui-input1.invalid:focus {
     border-radius: 5px;
 
     transition: 0.2s;
+}
+
+.ui-button2:last-child,
+.ui-button1:last-child {
+    margin-bottom: 0;
+}
+
+.ui-button2:first-child,
+.ui-button1:first-child {
+    margin-top: 0;
 }
 
 .ui-button2:last-of-type,
@@ -291,6 +308,7 @@ input.ui-input1.invalid:focus {
 /* Btn-2 types */
 .ui-button2 {
     position: relative;
+    display: block;
     box-sizing: border-box;
 
     padding: 8px 12px;
@@ -338,4 +356,37 @@ input.ui-input1.invalid:focus {
     pointer-events: none;
 
     background-color: var(--color-gray-disabled);
+}
+
+/* Components Container */
+.ui-ccontainer {
+    display: flex;
+    align-items: center;
+
+    transition: background-color 0.2s;
+}
+
+.ui-ccontainer.drag-over {
+    background-color: var(--color-blue-background);
+}
+
+.ui-ccontainer.space-between {
+    justify-content: space-between;
+}
+
+.ui-ccontainer > * {
+    margin: 0 8px 0 0 !important;
+}
+
+#router > .route.dynamic-page.edit-mode .ui-ccontainer {
+    padding: 10px;
+    margin-bottom: 16px;
+
+    border: 2px dashed var(--color-blue2);
+    border-radius: 5px;
+}
+
+#router > .route.dynamic-page.edit-mode .ui-ccontainer:empty {
+    padding: 0;
+    height: 40px;
 }

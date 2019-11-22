@@ -49,7 +49,7 @@ export default class DraggableComponentsDrawer extends React.Component {
                         </div>
                     </Component>
 
-                    <Component name="Container" component_type="components_container">
+                    <Component name="Container" component_type="horizontal_container">
                         <div className="components-container">
                             <div></div>
                         </div>
