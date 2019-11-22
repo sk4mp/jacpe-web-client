@@ -12,6 +12,7 @@ class DraggablePanel extends React.Component {
         this.state = {
             // TODO: @css Add dragOver styles
             dragOver: false,
+            empty: true,
             child_components: []
         }
 
@@ -22,6 +23,9 @@ class DraggablePanel extends React.Component {
     }
 
     shouldComponentUpdate(next_props, next_state) {
+        // Empty
+        if(next_state.empty !== this.state.empty) return true;
+
         // On child_components update (happens when a panel changes in `config` redux store)
         if(next_state.child_components !== this.state.child_components) return true;
 
@@ -41,6 +45,13 @@ class DraggablePanel extends React.Component {
         if(prev_props.store_config.panels[this.props.panel_id] !== store_panel) {
             // Get all child_components for this panel
             const l = store_panel.child_components.length;
+
+            // If the panel is empty
+            if(l === 0) {
+                this.setState({ empty: true });
+                return;
+            }
+
             const child_components = [];
 
             for(let i = 0; i < l; i++) {
@@ -49,7 +60,7 @@ class DraggablePanel extends React.Component {
                 child_components.push(this.props.store_config.components[component_id].element);
             }
 
-            this.setState({ child_components });
+            this.setState({ child_components, empty: false });
         }
     }
 
@@ -94,7 +105,11 @@ class DraggablePanel extends React.Component {
     render() {
         return (
             <div
-            className={ "draggable-panel" + (this.state.dragOver ? " drag-over" : "")}
+            className={
+                "draggable-panel" +
+                (this.state.dragOver ? " drag-over" : "") +
+                (this.state.empty ? " empty" : "")
+            }
             panel_id={ this.props.panel_id }
 
             onDragEnter={ this.onDragEnter }
@@ -103,6 +118,13 @@ class DraggablePanel extends React.Component {
             onDragOver={ this.onDragOver }
             >
                 { this.state.child_components }
+
+                { this.state.empty && <div className="center-text">This panel is empty</div> }
+
+                <div className="panel-buttons">
+                    <div className="button"><i className="fas fa-sliders-h"></i></div>
+                    <div className="button red"><i className="fas fa-times"></i></div>
+                </div>
             </div>
         );
     }

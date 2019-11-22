@@ -6,12 +6,15 @@
 
 .ui-tooltip-container .ui-tooltip {
     position: absolute;
-    z-index: 1;
+
+    /* TODO: @css I'm not sure why this doen't work */
+    z-index: 5;
 
     bottom: 100%;
     left: 50%;
 
-    width: 160px;
+    min-width: 160px;
+    max-width: 240px;
 
     pointer-events: none;
     opacity: 0;
@@ -363,7 +366,17 @@ input.ui-input1.invalid:focus {
     display: flex;
     align-items: center;
 
+    margin: 12px 0;
+
     transition: background-color 0.2s;
+}
+
+.ui-ccontainer:first-child {
+    margin-top: 0;
+}
+
+.ui-ccontainer:last-child {
+    margin-bottom: 0;
 }
 
 .ui-ccontainer.drag-over {

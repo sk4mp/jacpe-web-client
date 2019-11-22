@@ -1,9 +1,9 @@
 # Just Another Control Panel Engine
-A control panel engine that you can configure on the fly.
+A control panel that lets you create your own panels and forms to reflect the data structure of your API.
 
 ⚠ The project is currently in the *very* early stages of development, so just a handful of features are implemented. ⚠
 
-![Screenshot](https://i.imgur.com/bJQ6qu3.png)
+![Screenshot](https://i.gyazo.com/108741ad7ea2a7d5f5a0fda7cd357bce.gif)
 
 ### Ideas / Goals
 * Configure all your panels, pages, API calls and more on the go.
@@ -25,6 +25,6 @@ Some other commands:
 * `yarn lint` — Lint the project (ESLint)
 
 ### Contributing
-If you found a bug, or have any idea that you think fits this project, feel free to open an Issue.
+If you found a bug or have any idea that you think fits this project, feel free to open an Issue.
 
 You can also search this project by `TODO` keyword to find something interesting to work on.

@@ -28,7 +28,7 @@ body {
 
 #router > .route {
     height: 100%;
-    overflow-y: auto;
+    overflow-y: overlay;
 }
 
 :root {

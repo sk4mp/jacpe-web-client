@@ -4,6 +4,12 @@
     box-sizing: border-box;
 
     padding: 8px;
+
+    transition: padding-right 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode {
+    padding-right: 20px;
 }
 
 /* Root panels container */
@@ -19,9 +25,18 @@
 
 /* Panel placeholder */
 #router > .route.dynamic-page .panel-placeholder {
-    display: none;
+    position: relative;
 
+    /* Hidden state */
+    opacity: 0;
+    transform: scale(0.9) translateY(-25px);
+    color: transparent;
+    pointer-events: none;
+
+    height: 200px;
     border-radius: 5px;
+
+    transition: all 0.2s ease-in-out, color 0s;
 }
 
 #router > .route.dynamic-page.edit-mode .panel-placeholder {
@@ -29,7 +44,9 @@
     align-items: center;
     justify-content: center;
 
-    height: 200px;
+    opacity: 1;
+    transform: scale(1) translateY(0);
+    pointer-events: all;
 
     /* Should be at least a height of draggable components drawer */
     /* TODO: @hack */
@@ -38,8 +55,6 @@
     cursor: pointer;
 
     background-color: var(--color-blue2-background);
-
-    transition: 0.2s;
 }
 
 #router > .route.dynamic-page.edit-mode .panel-placeholder > .add-icon {
@@ -53,11 +68,18 @@
     color: var(--color-blue2);
     font-size: 16px;
 
+    transform: scale(1);
+
     border-radius: 50%;
 
     background-color: rgba(25, 25, 255, 0.15);
 
-    transition: background-color 0.2s, transform 0.2s;
+    transition: background-color 0.2s, transform 0.35s;
+}
+
+#router > .route.dynamic-page .panel-placeholder > .add-icon {
+    /* Hiden state */
+    transform: scale(0.7) translateY(-25px);
 }
 
 #router > .route.dynamic-page.edit-mode .panel-placeholder:hover > .add-icon {
@@ -88,8 +110,88 @@
     transition: 0.2s;
 }
 
-#router > .route.dynamic-page .draggable-panel:empty {
+#router > .route.dynamic-page.edit-mode .draggable-panel:not(.empty) {
+    padding-top: 45px;
+}
+
+#router > .route.dynamic-page .draggable-panel.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     height: 140px;
+}
+
+#router > .route.dynamic-page .draggable-panel.empty > .center-text {
+    color: hsl(0, 0%, 60%);
+    font-size: 12px;
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons {
+    position: absolute;
+    display: flex;
+
+    top: 0;
+    right: 0;
+
+    margin: 8px;
+
+    /* Hidden state */
+    transform: translateY(-2px);
+    opacity: 0;
+    pointer-events: none;
+
+    transition: 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode .draggable-panel > .panel-buttons {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: all;
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 28px;
+    height: 28px;
+
+    margin-left: 6px;
+
+    cursor: pointer;
+
+    color: var(--color-blue);
+    font-size: 13px;
+
+    background-color: var(--color-blue-background);
+    border-radius: 50%;
+
+    transition: background-color 0.2s;
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button:hover {
+    background-color: var(--color-blue-background-hover);
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button:active {
+    transition: 0s;
+    background-color: var(--color-blue-background-active);
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button.red {
+    color: var(--color-red);
+    background-color: var(--color-red-background);
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button.red:hover {
+    background-color: var(--color-red-background-hover);
+}
+
+#router > .route.dynamic-page .draggable-panel > .panel-buttons > .button.red:active {
+    transition: 0s;
+    background-color: var(--color-red-background-active);
 }
 
 /* Draggable Components Drawer */
