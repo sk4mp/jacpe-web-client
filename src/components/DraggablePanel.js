@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { createDraggableComponentFromType } from "../tools";
-import { config_assign_component } from "../actions";
+import { config_assign_component, config_delete_panel } from "../actions";
 
 class DraggablePanel extends React.Component {
     constructor(props) {
@@ -13,8 +13,11 @@ class DraggablePanel extends React.Component {
             // TODO: @css Add dragOver styles
             dragOver: false,
             empty: true,
+            deleted: false,
             child_components: []
         }
+
+        this.deletePanel = this.deletePanel.bind(this);
 
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
@@ -23,6 +26,10 @@ class DraggablePanel extends React.Component {
     }
 
     shouldComponentUpdate(next_props, next_state) {
+        // Deleted
+        if(this.state.deleted) return false;
+        if(next_state.deleted !== this.state.deleted) return true;
+
         // Empty
         if(next_state.empty !== this.state.empty) return true;
 
@@ -38,6 +45,12 @@ class DraggablePanel extends React.Component {
     }
 
     componentDidUpdate(prev_props) {
+        // This panel was deleted
+        if(this.props.store_config.panels[this.props.panel_id] === false) {
+            this.setState({ deleted: true });
+            return false;
+        }
+
         // To make things a bit less messy
         const store_panel = this.props.store_config.panels[this.props.panel_id];
 
@@ -102,7 +115,13 @@ class DraggablePanel extends React.Component {
         return false;
     }
 
+    deletePanel() {
+        config_delete_panel(this.props.panel_id, this.props.dispatch);
+    }
+
     render() {
+        if(this.state.deleted) return false;
+
         return (
             <div
             className={
@@ -123,7 +142,7 @@ class DraggablePanel extends React.Component {
 
                 <div className="panel-buttons">
                     <div className="button"><i className="fas fa-sliders-h"></i></div>
-                    <div className="button red"><i className="fas fa-times"></i></div>
+                    <div className="button red" onClick={ this.deletePanel }><i className="fas fa-times"></i></div>
                 </div>
             </div>
         );

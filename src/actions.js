@@ -23,6 +23,12 @@ export function config_add_panel(panel_object, dispatch) {
     dispatch({ type: CONFIG_ADD_PANEL, panel: panel_object });
 }
 
+// Delete a panel
+export const CONFIG_DELETE_PANEL = "CONFIG_DELETE_PANEL";
+export function config_delete_panel(panel_id, dispatch) {
+    dispatch({ type: CONFIG_DELETE_PANEL, panel_id });
+}
+
 // Assign component to the panel (component must be registered using CONFIG_ADD_COMPONENT)
 export const CONFIG_PANEL_ADD_COMPONENT = "CONFIG_PANEL_ADD_COMPONENT";
 export function config_panel_add_component(panel_id, component_id, dispatch) {
