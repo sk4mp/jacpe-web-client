@@ -53,6 +53,23 @@
     transform: translateY(0);
 }
 
+/* Draggable component */
+.ui-draggable-component {
+    margin: 10px 0;
+}
+
+/* first child */
+.ui-draggable-component:first-child,
+.ui-draggable-component:first-child > * {
+    margin-top: 0;
+}
+
+/* last child (don't count panel buttons) */
+.ui-draggable-component:nth-last-child(2),
+.ui-draggable-component:nth-last-child(2) > * {
+    margin-bottom: 0;
+}
+
 /* Input names */
 .ui-input-name1 {
     margin-bottom: 3px;
@@ -63,16 +80,6 @@
     color: hsl(228, 25%, 40%);
 }
 
-.ui-input-with-name {
-    margin: 12px 0;
-}
-
-.ui-input-with-name:first-child {
-    margin-top: 0;
-}
-
-.ui-input-with-name:last-child {
-    margin-bottom: 0;
 }
 
 /* Input */
@@ -107,10 +114,7 @@ input.ui-input1.invalid:focus {
     position: relative;
     display: block;
 
-    margin: 6px 0;
-
     padding: 7px 15px;
-    margin-right: 10px;
 
     border: 0;
     outline: 0;
@@ -135,21 +139,6 @@ input.ui-input1.invalid:focus {
     border-radius: 5px;
 
     transition: 0.2s;
-}
-
-.ui-button2:last-child,
-.ui-button1:last-child {
-    margin-bottom: 0;
-}
-
-.ui-button2:first-child,
-.ui-button1:first-child {
-    margin-top: 0;
-}
-
-.ui-button2:last-of-type,
-.ui-button1:last-of-type {
-    margin-right: 0;
 }
 
 .ui-button1:hover {
@@ -315,7 +304,6 @@ input.ui-input1.invalid:focus {
     box-sizing: border-box;
 
     padding: 8px 12px;
-    margin-right: 10px;
 
     border: none;
     outline: none;
@@ -366,17 +354,7 @@ input.ui-input1.invalid:focus {
     display: flex;
     align-items: center;
 
-    margin: 12px 0;
-
     transition: background-color 0.2s;
-}
-
-.ui-ccontainer:first-child {
-    margin-top: 0;
-}
-
-.ui-ccontainer:last-child {
-    margin-bottom: 0;
 }
 
 .ui-ccontainer.drag-over {
@@ -393,10 +371,13 @@ input.ui-input1.invalid:focus {
 
 #router > .route.dynamic-page.edit-mode .ui-ccontainer {
     padding: 10px;
-    margin-bottom: 16px;
 
     border: 2px dashed var(--color-blue2);
     border-radius: 5px;
+}
+
+#router > .route.dynamic-page.edit-mode .ui-draggable-component:nth-last-child(2) .ui-ccontainer {
+    margin-bottom: 20px;
 }
 
 #router > .route.dynamic-page.edit-mode .ui-ccontainer:empty {
