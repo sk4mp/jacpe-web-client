@@ -277,3 +277,90 @@
 
     border-right: 2px dashed rgba(25, 25, 255, 0.35);
 }
+
+/* Component buttons */
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component {
+    position: relative;
+
+    transition: margin-bottom 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode .draggable-panel .ui-draggable-component:hover {
+    margin-bottom: 30px !important;
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons {
+    position: absolute;
+    z-index: 1;
+
+    /* Hidden state */
+    display: none;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+    
+    margin-left: 3px;
+
+    /* Hidden state */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(90%);
+
+    transition: 0.2s;
+}
+
+#router > .route.dynamic-page.edit-mode .draggable-panel .ui-draggable-component > .component-buttons {
+    display: flex;
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component:hover > .component-buttons {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(100%);
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 24px;
+    height: 24px;
+
+    margin-right: 6px;
+
+    cursor: pointer;
+
+    color: var(--color-blue);
+    font-size: 13px;
+
+    background-color: var(--color-blue-background);
+    border-radius: 0 0 3px 3px;
+
+    transition: background-color 0.2s;
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button:hover {
+    background-color: var(--color-blue-background-hover);
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button:active {
+    transition: 0s;
+    background-color: var(--color-blue-background-active);
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button.red {
+    color: var(--color-red);
+    background-color: var(--color-red-background);
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button.red:hover {
+    background-color: var(--color-red-background-hover);
+}
+
+#router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons > .button.red:active {
+    transition: 0s;
+    background-color: var(--color-red-background-active);
+}

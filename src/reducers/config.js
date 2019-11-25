@@ -1,6 +1,7 @@
 import {
     CONFIG_ADD_PANEL,
     CONFIG_DELETE_PANEL,
+    CONFIG_DELETE_COMPONENT,
     CONFIG_EDIT_COMPONENT,
     CONFIG_COMPONENT_EDIT_CHILDREN,
     CONFIG_PANEL_ADD_COMPONENT
@@ -27,7 +28,7 @@ export default function(state = INITIAL_STATE, action) {
             // Delete all components of this panel
             for(const component_id of state.panels[action.panel_id].child_components) {
                 // Check if component is a container (i.e. also has child components)
-                if(new_components_object[component_id].child_components) {
+                if(new_components_object[component_id] && new_components_object[component_id].child_components) {
                     // Delete all child components of the conteiner assigned to the panel that is to be deleted
                     for(const child_component_id of new_components_object[component_id].child_components) {
                         delete new_components_object[child_component_id];
@@ -40,6 +41,26 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 panels: { ...state.panels, [action.panel_id]: false },
+                components: new_components_object
+            }
+        }
+
+        case CONFIG_DELETE_COMPONENT: {
+            let new_components_object = state.components;
+
+            // Check if component is a container (i.e. has child components)
+            if(new_components_object[action.component_id] &&
+            new_components_object[action.component_id].child_components) {
+                // Delete all child components of the conteiner
+                for(const child_component_id of new_components_object[action.component_id].child_components) {
+                    delete new_components_object[child_component_id];
+                }
+            }
+
+            delete new_components_object[action.component_id];
+
+            return {
+                ...state,
                 components: new_components_object
             }
         }

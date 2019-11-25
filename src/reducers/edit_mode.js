@@ -1,10 +1,12 @@
 import {
     EDITMODE_ENTER,
-    EDITMODE_LEAVE
+    EDITMODE_LEAVE,
+    EDITMODE_SELECT_COMPONENT
 } from "../actions";
 
 const INITIAL_STATE = {
-    active: false
+    active: false,
+    selected_component: undefined
 }
 
 export default function(state = INITIAL_STATE, action) {
@@ -20,6 +22,13 @@ export default function(state = INITIAL_STATE, action) {
             return {
                 ...state,
                 active: false
+            }
+        }
+
+        case EDITMODE_SELECT_COMPONENT: {
+            return {
+                ...state,
+                selected_component: action.component_id
             }
         }
 

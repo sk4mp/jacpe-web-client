@@ -69,8 +69,12 @@ class DraggablePanel extends React.Component {
 
             for(let i = 0; i < l; i++) {
                 const component_id = store_panel.child_components[i];
+                const component = this.props.store_config.components[component_id];
 
-                child_components.push(this.props.store_config.components[component_id].element);
+                // Check if component is not deleted
+                if(component) {
+                    child_components.push(component.element);
+                }
             }
 
             this.setState({ child_components, empty: false });
@@ -105,8 +109,7 @@ class DraggablePanel extends React.Component {
         // Check if the new component was reutrned (the function above returns false on error)
         if(new_component) {
             // Assign component to panel in redux store (which will cause this panel to rerender with a new component)
-            config_assign_component(new_component, this.props.store_config.panels[this.props.panel_id],
-            this.props.dispatch);
+            config_assign_component(new_component, component_type, this.props.panel_id, this.props.dispatch);
         }
 
         this.setState({ dragOver: false });

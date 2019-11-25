@@ -4,16 +4,26 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import { createDraggableComponentFromType } from "../tools";
-import { config_component_edit_children, config_edit_component } from "../actions";
+import {
+    config_component_edit_children,
+    config_edit_component,
+    editmode_select_component,
+    config_delete_component }
+from "../actions";
 
+// TODO: @misc component-buttons really should be in another file, as it will be used in every component
+// TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
 class DC_Сontainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             dragOver: false,
+            deleted: false,
             child_components: []
         }
+
+        this.deleteComponent = this.deleteComponent.bind(this);
 
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
@@ -22,6 +32,9 @@ class DC_Сontainer extends React.Component {
     }
 
     shouldComponentUpdate(next_props, next_state) {
+        // Deleted
+        if(next_state.deleted !== this.state.deleted) return true;
+
         // On child_components update (happens when a component changes in `config` redux store)
         if(next_state.child_components !== this.state.child_components) return true;
 
@@ -49,8 +62,12 @@ class DC_Сontainer extends React.Component {
 
             for(let i = 0; i < l; i++) {
                 const component_id = store_component.child_components[i];
+                const component = this.props.store_config.components[component_id];
 
-                child_components.push(this.props.store_config.components[component_id].element);
+                // Check if component is not deleted
+                if(component) {
+                    child_components.push(component.element);
+                }
             }
 
             this.setState({ child_components });
@@ -88,8 +105,10 @@ class DC_Сontainer extends React.Component {
             let new_child_components;
 
             // New component object for `config` redux store
+            // TODO: @misc We should have an interface for component object
             const new_component_object = {
                 element: new_component,
+                type: component_type,
                 panel_id: this.props.panel_id
             }
 
@@ -117,18 +136,42 @@ class DC_Сontainer extends React.Component {
         return false;
     }
 
+    deleteComponent() {
+        config_delete_component(this.props.component_id, this.props.dispatch);
+        this.setState({ deleted: true });
+    }
+
     render() {
+        if(this.state.deleted) return false;
+
         return (
             <div
-            component_id={ this.props.component_id }
-            className={ "ui-ccontainer" + (this.state.dragOver ? " drag-over" : "") }
-
-            onDragEnter={ this.onDragEnter }
-            onDragLeave={ this.onDragLeave }
-            onDrop={ this.onDrop }
-            onDragOver={ this.onDragOver }
+            className="ui-draggable-component"
             >
-                { this.state.child_components }
+                <div
+                component_id={ this.props.component_id }
+                className={ "ui-ccontainer" + (this.state.dragOver ? " drag-over" : "") }
+
+                onDragEnter={ this.onDragEnter }
+                onDragLeave={ this.onDragLeave }
+                onDrop={ this.onDrop }
+                onDragOver={ this.onDragOver }
+                >
+                    { this.state.child_components }
+                </div>
+
+                <div className="component-buttons">
+                    <div
+                    className="button"
+                    onClick={ () => editmode_select_component(this.props.component_id, this.props.dispatch) }>
+                        <i className="fas fa-sliders-h"></i>
+                    </div>
+                    <div
+                    className="button red"
+                    onClick={ this.deleteComponent }>
+                        <i className="fas fa-times"></i>
+                    </div>
+                </div>
             </div>
         );
     }

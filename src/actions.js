@@ -16,8 +16,13 @@ export function editmode_leave(dispatch) {
     dispatch({ type: EDITMODE_LEAVE });
 }
 
+export const EDITMODE_SELECT_COMPONENT = "EDITMODE_SELECT_COMPONENT";
+export function editmode_select_component(component_id, dispatch) {
+    dispatch({ type: EDITMODE_SELECT_COMPONENT, component_id });
+}
+
 // Add a new panel
-// TODO: @misc add something like an interface for panel_object
+// TODO: @misc We should have an interface for component object
 export const CONFIG_ADD_PANEL = "CONFIG_ADD_PANEL";
 export function config_add_panel(panel_object, dispatch) {
     dispatch({ type: CONFIG_ADD_PANEL, panel: panel_object });
@@ -27,6 +32,12 @@ export function config_add_panel(panel_object, dispatch) {
 export const CONFIG_DELETE_PANEL = "CONFIG_DELETE_PANEL";
 export function config_delete_panel(panel_id, dispatch) {
     dispatch({ type: CONFIG_DELETE_PANEL, panel_id });
+}
+
+// Delete a component
+export const CONFIG_DELETE_COMPONENT = "CONFIG_DELETE_COMPONENT";
+export function config_delete_component(component_id, dispatch) {
+    dispatch({ type: CONFIG_DELETE_COMPONENT, component_id });
 }
 
 // Assign component to the panel (component must be registered using CONFIG_ADD_COMPONENT)
@@ -66,14 +77,15 @@ export function config_create_panel(dispatch) {
 }
 
 // Assign component to the panel
-// TODO: @misc passing the whole panel object is a bit messy, an id would be nicer
-export function config_assign_component(component, panel, dispatch) {
+export function config_assign_component(component_el, component_type, panel_id, dispatch) {
+    // TODO: @misc We should have an interface for component object
     const component_object = {
-        element: component,
-        panel_id: panel.id
+        element: component_el,
+        type: component_type,
+        panel_id: panel_id
     }
 
     // TODO: @misc not sure if this is the best way to do this
     dispatch({ type: CONFIG_EDIT_COMPONENT, component_object });
-    dispatch({ type: CONFIG_PANEL_ADD_COMPONENT, panel_id: panel.id, component_id: component.props.component_id });
+    dispatch({ type: CONFIG_PANEL_ADD_COMPONENT, panel_id, component_id: component_el.props.component_id });
 }

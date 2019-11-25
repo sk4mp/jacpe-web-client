@@ -1,8 +1,31 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default class DC_Button extends React.Component {
+import { connect } from "react-redux";
+
+import { editmode_select_component, config_delete_component } from "../actions";
+
+// TODO: @misc component-buttons really should be in another file, as it will be used in every component
+// TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
+class DC_Button extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            deleted: false
+        }
+
+        this.deleteComponent = this.deleteComponent.bind(this);
+    }
+
+    deleteComponent() {
+        config_delete_component(this.props.component_id, this.props.dispatch);
+        this.setState({ deleted: true });
+    }
+
     render() {
+        if(this.state.deleted) return false;
+
         // TODO: @misc This is messy
         let className = "ui-button" + (this.props.type || "1");
 
@@ -16,12 +39,29 @@ export default class DC_Button extends React.Component {
         if(this.props.emphasis) className += " " + this.props.emphasis;
 
         return (
-            <button
-            className={ className }
-            component_id={ this.props.component_id }
+            <div
+            className="ui-draggable-component"
             >
-                { this.props.text || "button" }
-            </button>
+                <button
+                className={ className }
+                component_id={ this.props.component_id }
+                >
+                    { this.props.text || "button" }
+                </button>
+
+                <div className="component-buttons">
+                    <div
+                    className="button"
+                    onClick={ () => editmode_select_component(this.props.component_id, this.props.dispatch) }>
+                        <i className="fas fa-sliders-h"></i>
+                    </div>
+                    <div
+                    className="button red"
+                    onClick={ this.deleteComponent }>
+                        <i className="fas fa-times"></i>
+                    </div>
+                </div>
+            </div>
         )
     }
 }
@@ -33,5 +73,9 @@ DC_Button.propTypes = {
     color: PropTypes.string,
     emphasis: PropTypes.string,
 
-    component_id: PropTypes.string.isRequired
+    component_id: PropTypes.string.isRequired,
+
+    dispatch: PropTypes.func.isRequired
 }
+
+export default connect()(DC_Button);

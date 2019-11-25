@@ -80,8 +80,6 @@
     color: hsl(228, 25%, 40%);
 }
 
-}
-
 /* Input */
 input.ui-input1 {
     padding: 6px 10px;
@@ -352,6 +350,8 @@ input.ui-input1.invalid:focus {
 /* Components Container */
 .ui-ccontainer {
     display: flex;
+
+    /* TODO: @css maybe we should use `flex-end`, it looks nicer IMO */
     align-items: center;
 
     transition: background-color 0.2s;
