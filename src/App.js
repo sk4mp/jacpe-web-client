@@ -7,6 +7,7 @@ import store from "./redux-store";
 
 import TopPanel from "./components/TopPanel";
 import DynamicPage from "./routes/DynamicPage";
+import LeftPanel from "./components/LeftPanel";
 
 export default class App extends React.Component {
     constructor(props) {
@@ -22,6 +23,8 @@ export default class App extends React.Component {
                     <TopPanel />
 
                     <div id="content">
+                        <LeftPanel />
+
                         <div id="router">
                             <Route path="/:page_id" component={ DynamicPage } />
                             <Route path="*" component={ () => <div>Go to /something to see an exaple</div> } />

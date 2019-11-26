@@ -11,6 +11,22 @@ import {
     config_delete_component }
 from "../actions";
 
+// Left panel config for this component
+export class DC_Container_CP extends React.Component {
+    render() {
+        return (
+            <div className="content">
+                <div className="component-intro-block">
+                    <div className="name">Horizontal container</div>
+                    <div className="description">Used to horizontally position other components.</div>
+                </div>
+
+                <div className="ui-text">🚧 Options will be here...</div>
+            </div>
+        )
+    }
+}
+
 // TODO: @misc component-buttons really should be in another file, as it will be used in every component
 // TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
 class DC_Сontainer extends React.Component {

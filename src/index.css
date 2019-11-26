@@ -53,6 +53,7 @@ body {
     --color-red-background-hover: rgba(232, 32, 0, 0.18);
     --color-red-background-active: rgba(232, 32, 0, 0.25);
 
+    --color-gray98: hsl(0, 0%, 98%);
     --color-gray95: hsl(0, 0%, 95%);
     --color-gray90: hsl(0, 0%, 90%);
     --color-gray85: hsl(0, 0%, 85%);

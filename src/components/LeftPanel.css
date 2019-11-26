@@ -1,0 +1,65 @@
+#left-panel {
+    position: relative;
+
+    height: 100%;
+
+    flex-shrink: 0;
+
+    /* Hidden state */
+    width: 0px;
+
+    border-right: 1px solid var(--color-gray85);
+    background-color: white;
+
+    transition: 0.2s;
+}
+
+#left-panel.shown {
+    width: 300px;
+}
+
+#left-panel > .content {
+    width: 300px;
+    box-sizing: border-box;
+
+    padding: 16px 12px;
+}
+
+#left-panel > .content > .component-intro-block {
+    padding: 8px 12px;
+
+    margin-bottom: 12px;
+
+    border-radius: 5px;
+    background-color: var(--color-gray98);
+
+    box-shadow: 0 0 0 1px var(--color-gray95);
+}
+
+#left-panel > .content > .component-intro-block .name {
+    font-size: 20px;
+    font-weight: 600;
+
+    /* font-family: monospace; */
+    letter-spacing: 0.5px;
+}
+
+#left-panel > .content > .component-intro-block .description {
+    margin-top: 2px;
+
+    font-size: 13px;
+    color: hsl(0, 0%, 50%);
+}
+
+#left-panel > .content .ui-select-with-name,
+#left-panel > .content .ui-select-with-name select,
+#left-panel > .content .ui-input-with-name input,
+#left-panel > .content .ui-input-with-name {
+    box-sizing: border-box;
+    width: 100%;
+}
+
+#left-panel > .content .ui-select-with-name,
+#left-panel > .content .ui-input-with-name {
+    margin-bottom: 18px;
+}

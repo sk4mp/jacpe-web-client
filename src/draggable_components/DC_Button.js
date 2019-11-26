@@ -5,6 +5,25 @@ import { connect } from "react-redux";
 
 import { editmode_select_component, config_delete_component } from "../actions";
 
+// Left panel config for this component
+export class DC_Button_CP extends React.Component {
+    render() {
+        return (
+            <div className="content">
+                <div className="component-intro-block">
+                    <div className="name">Button</div>
+                    <div className="description">Used mainly for API calls.</div>
+                </div>
+
+                <div className="ui-input-with-name">
+                    <div className="ui-input-name1">Text</div>
+                    <input type="text" className="ui-input1" placeholder="Button" />
+                </div>
+            </div>
+        )
+    }
+}
+
 // TODO: @misc component-buttons really should be in another file, as it will be used in every component
 // TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
 class DC_Button extends React.Component {

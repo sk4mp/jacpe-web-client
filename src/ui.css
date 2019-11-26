@@ -80,8 +80,12 @@
     color: hsl(228, 25%, 40%);
 }
 
+.ui-input-with-name .ui-text {
+    margin-top: 8px;
+}
+
 /* Input */
-input.ui-input1 {
+.ui-input1 {
     padding: 6px 10px;
 
     outline: none;
@@ -95,15 +99,24 @@ input.ui-input1 {
     transition: 0.2s;
 }
 
-input.ui-input1.invalid {
+.ui-input1.invalid {
     box-shadow: 0 0 0 1px var(--color-red-lighter);
 }
 
-input.ui-input1:focus {
+.ui-input1.monospace {
+    padding: 6px 7px;
+    font-family: monospace;
+}
+
+input.ui-input1::placeholder {
+    color: hsl(0, 0%, 55%);
+}
+
+.ui-input1:focus {
     box-shadow: 0 0 0 1px var(--color-blue2), 0 2px 5px 0 hsl(240, 100%, 85%);
 }
 
-input.ui-input1.invalid:focus {
+.ui-input1.invalid:focus {
     box-shadow: 0 0 0 1px var(--color-red), 0 2px 5px 0 hsl(8, 83%, 85%);
 }
 
@@ -383,4 +396,22 @@ input.ui-input1.invalid:focus {
 #router > .route.dynamic-page.edit-mode .ui-ccontainer:empty {
     padding: 0;
     height: 40px;
+}
+
+/* Text */
+.ui-text {
+    font-family: "Roboto", sans-serif;
+    font-size: 14px;
+}
+
+.ui-text > i:first-child {
+    margin-right: 4px;
+}
+
+.ui-text.small {
+    font-size: 11.5px;
+}
+
+.ui-text.gray {
+    color: hsl(0, 0%, 60%);
 }
