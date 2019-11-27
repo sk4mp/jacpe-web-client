@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": false,
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/sk4mp/jacpe-web-client.git"
+    "type": "git",
+    "url": "https://github.com/sk4mp/jacpe-web-client.git"
   },
+  "homepage": "http://sk4mp.github.io/jacpe-web-client",
   "license": "Apache-2.0",
   "dependencies": {
     "eslint": "^6.6.0",
@@ -39,5 +40,6 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  }
+  },
+  "devDependencies": {}
 }
