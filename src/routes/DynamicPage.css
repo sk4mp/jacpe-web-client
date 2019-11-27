@@ -290,6 +290,11 @@
     margin-bottom: 30px !important;
 }
 
+/* Hide component buttons elsewhere */
+.ui-draggable-component > .component-buttons {
+    display: none;
+}
+
 #router > .route.dynamic-page .draggable-panel .ui-draggable-component > .component-buttons {
     position: absolute;
     z-index: 1;

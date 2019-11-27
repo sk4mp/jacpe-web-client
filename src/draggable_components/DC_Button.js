@@ -3,10 +3,65 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
+import ComponentTypeSelector, { Section, Option } from "../components/ComponentTypeSelector";
+
 import { editmode_select_component, config_delete_component } from "../actions";
 
 // Left panel config for this component
 export class DC_Button_CP extends React.Component {
+    constructor(props) {
+        super(props);
+
+        const icon_color_style = {
+            width: 8,
+            height: 8,
+            borderRadius: 3
+        }
+
+        this.icon_color_red = {
+            ...icon_color_style,
+            backgroundColor: "var(--color-red)"
+        }
+
+        this.icon_color_blue = {
+            ...icon_color_style,
+            backgroundColor: "var(--color-blue)"
+        }
+
+        const icon_type = {
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+
+            width: 14,
+            height: 14,
+            borderRadius: 3,
+
+            fontSize: 10,
+        }
+
+        this.icon_type_normal = {
+            ...icon_type,
+            color: "rgba(255, 255, 255, 0.95)",
+            fontWeight: 500,
+            backgroundColor: "var(--color-blue)"
+        }
+
+        this.icon_type_outlined = {
+            ...icon_type,
+            color: "var(--color-blue)",
+            fontWeight: 500,
+            boxSizing: "border-box",
+            border: "1px solid var(--color-blue)"
+        }
+
+        this.icon_type_lowemp = {
+            ...icon_type,
+            color: "var(--color-blue)",
+            fontWeight: 500,
+        }
+    }
+
     render() {
         return (
             <div className="content">
@@ -19,6 +74,29 @@ export class DC_Button_CP extends React.Component {
                     <div className="ui-input-name1">Text</div>
                     <input type="text" className="ui-input1" placeholder="Button" />
                 </div>
+
+                <ComponentTypeSelector preview_component={ DC_Button }>
+                    <Section key_name="size" default="bigger" name="Size" icon={ <i className="fas fa-ruler"></i> }>
+                        <Option value="small" text="Small" />
+                        <Option value="bigger" text="Default" />
+                        <Option value="big" text="Big" />
+                    </Section>
+                    <Section key_name="emphasis" default="normal" name="Type" icon={ <i className="fas fa-cubes"></i> }>
+                        <Option value="normal" text="Normal" custom_icon={
+                            <div style={ this.icon_type_normal }>A</div>
+                        } />
+                        <Option value="outlined" text="Outlined" custom_icon={
+                            <div style={ this.icon_type_outlined }>A</div>
+                        } />
+                        <Option value="low-emp" text="Low emphasis" custom_icon={
+                            <div style={ this.icon_type_lowemp }>A</div>
+                        } />
+                    </Section>
+                    <Section key_name="color" default="blue" name="Color" icon={ <i className="fas fa-palette"></i> }>
+                        <Option value="blue" text="Blue" custom_icon={ <div style={ this.icon_color_blue }></div> } />
+                        <Option value="red" text="Red" custom_icon={ <div style={ this.icon_color_red }></div> } />
+                    </Section>
+                </ComponentTypeSelector>
             </div>
         )
     }
