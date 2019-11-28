@@ -4,23 +4,6 @@ import PropTypes from "prop-types";
 import "./ComponentTypeSelector.css";
 
 export class Section extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            selected: this.props.default
-        };
-
-        this.onSelect = this.onSelect.bind(this);
-    }
-
-    onSelect(value) {
-        this.setState({ selected: value });
-
-        // Bubble the change
-        this.props.onChange(this.props.key_name, value);
-    }
-
     // TODO: @performance maybe?
     render() {
         let options = [];
@@ -31,8 +14,8 @@ export class Section extends React.Component {
 
             options.push(React.cloneElement(option, {
                 key: option.props.value,
-                selected: this.state.selected === option.props.value,
-                onClick: () => { this.onSelect(this.props.children[i].props.value) }
+                selected: (this.props.selected || this.props.default) === option.props.value,
+                onClick: () => { this.props.onChange(this.props.key_name, this.props.children[i].props.value) }
             }));
         }
 
@@ -52,6 +35,7 @@ Section.propTypes = {
     key_name: PropTypes.string.isRequired,
     icon: PropTypes.element.isRequired,
     name: PropTypes.string.isRequired,
+    selected: PropTypes.string,
     default: PropTypes.string,
 
     children: PropTypes.array.isRequired,
@@ -90,7 +74,7 @@ export default class ComponentTypeSelector extends React.Component {
 
         this.state = {
             PreviewComponent: () => false,
-            preview_component_props: { component_id: "-1", dispatch: () => false },
+            preview_component_props: { component_id: "-1", dispatch: () => false, ...props.default_props },
 
             opened_section: undefined
         }
@@ -100,7 +84,18 @@ export default class ComponentTypeSelector extends React.Component {
             this.state.PreviewComponent = this.props.preview_component;
         }
 
+        this.onChange = this.onChange.bind(this);
         this.onSectionClick = this.onSectionClick.bind(this);
+    }
+
+    componentDidUpdate(prev_props) {
+        // Parent provided new default props
+        if(prev_props.default_props !== this.props.default_props) {
+            this.setState({ preview_component_props: {
+                component_id: "-1", dispatch: () => false,
+                ...this.props.default_props
+            } });
+        }
     }
 
     onSectionClick(section_key_name) {
@@ -111,6 +106,19 @@ export default class ComponentTypeSelector extends React.Component {
         }
 
         this.setState({ opened_section: new_section_name });
+    }
+
+    onChange(key, value) {
+        let new_props = this.state.preview_component_props;
+        new_props[key] = value;
+
+        // TODO: @high @misc This is bad because we also delete this from this component
+        // Thank you js for not having pointers
+        delete new_props.dispatch;
+        delete new_props.component_id;
+
+        // Send the props to the parent component
+        this.props.onChange && this.props.onChange(new_props);
     }
 
     // TODO: @performance maybe?
@@ -124,12 +132,8 @@ export default class ComponentTypeSelector extends React.Component {
             sections.push(React.cloneElement(section, {
                 key: section.props.key_name,
                 open: this.state.opened_section === section.props.key_name,
-                onChange: (key, value) => {
-                    let new_props = this.state.preview_component_props;
-                    new_props[key] = value;
-
-                    this.setState({ preview_component_props: new_props })
-                },
+                selected: this.state.preview_component_props[section.props.key_name],
+                onChange: this.onChange,
                 onClick: () => this.onSectionClick(this.props.children[i].props.key_name)
             }));
         }
@@ -148,5 +152,8 @@ export default class ComponentTypeSelector extends React.Component {
 
 ComponentTypeSelector.propTypes = {
     preview_component: PropTypes.func.isRequired,
-    children: PropTypes.array.isRequired
+    children: PropTypes.array.isRequired,
+    default_props: PropTypes.object,
+
+    onChange: PropTypes.func
 }

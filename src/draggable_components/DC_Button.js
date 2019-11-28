@@ -5,12 +5,26 @@ import { connect } from "react-redux";
 
 import ComponentTypeSelector, { Section, Option } from "../components/ComponentTypeSelector";
 
-import { editmode_select_component, config_delete_component } from "../actions";
+import { editmode_select_component, config_delete_component, config_edit_component } from "../actions";
+
+// This is used for both components
+function mapStateToProps(state) {
+    return { store_config: state.config };
+}
 
 // Left panel config for this component
-export class DC_Button_CP extends React.Component {
+// TODO: @naming
+class _DC_Button_CP extends React.Component {
     constructor(props) {
         super(props);
+
+        // Get component props from redux store
+        const component_props = props.store_config.components[props.target_component_id].props || {};
+
+        this.state = {
+            component_props,
+            last_component_props: component_props
+        }
 
         const icon_color_style = {
             width: 8,
@@ -60,11 +74,48 @@ export class DC_Button_CP extends React.Component {
             color: "var(--color-blue)",
             fontWeight: 500,
         }
+
+        this.save = this.save.bind(this);
+
+        this.onInputChange = this.onInputChange.bind(this);
+        this.onTypeSelectorChange = this.onTypeSelectorChange.bind(this);
+    }
+
+    componentDidUpdate(prev_props) {
+        if(prev_props.target_component_id !== this.props.target_component_id) {
+            // Different component was selected, update the props
+            const component_props = this.props.store_config.components[this.props.target_component_id].props || {};
+
+            this.setState({ component_props, last_component_props: component_props });
+        }
+    }
+
+    onInputChange(event) {
+        // TODO: @misc do some checks here
+        if(!event.target.name) return false;
+
+        this.setState({ component_props: { ...this.state.component_props, [event.target.name]: event.target.value } });
+    }
+
+    onTypeSelectorChange(ts_props) {
+        // TODO: @performace
+        this.setState({ component_props: { ...this.state.component_props, ...ts_props } })
+    }
+
+    save() {
+        const edited_component = this.props.store_config.components[this.props.target_component_id];
+
+        edited_component.props = { ...edited_component.props, ...this.state.component_props };
+
+        // Save the component in `config` redux store
+        config_edit_component(edited_component, this.props.dispatch);
+
+        this.setState({ last_component_props: this.state.component_props });
     }
 
     render() {
         return (
-            <div className="content">
+            <div className="content component-editor">
                 <div className="component-intro-block">
                     <div className="name">Button</div>
                     <div className="description">Used mainly for API calls.</div>
@@ -72,10 +123,19 @@ export class DC_Button_CP extends React.Component {
 
                 <div className="ui-input-with-name">
                     <div className="ui-input-name1">Text</div>
-                    <input type="text" className="ui-input1" placeholder="Button" />
+                    <input
+                    type="text"
+                    name="text"
+                    className="ui-input1"
+                    onChange={ this.onInputChange }
+                    value={ this.state.component_props.text || "" }
+                    placeholder="Button" />
                 </div>
 
-                <ComponentTypeSelector preview_component={ DC_Button }>
+                <ComponentTypeSelector
+                onChange={ this.onTypeSelectorChange }
+                preview_component={ DC_Button }
+                default_props={ this.state.component_props }>
                     <Section key_name="size" default="bigger" name="Size" icon={ <i className="fas fa-ruler"></i> }>
                         <Option value="small" text="Small" />
                         <Option value="bigger" text="Default" />
@@ -97,10 +157,27 @@ export class DC_Button_CP extends React.Component {
                         <Option value="red" text="Red" custom_icon={ <div style={ this.icon_color_red }></div> } />
                     </Section>
                 </ComponentTypeSelector>
+
+                <div className={"bottom-panel" +
+                (this.state.last_component_props === this.state.component_props ? " hidden" : "")}>
+                    <div></div>
+                    <div>
+                        <button onClick={ this.save } className="ui-button1 big low-emp">save</button>
+                    </div>
+                </div>
             </div>
-        )
+        );
     }
 }
+
+_DC_Button_CP.propTypes = {
+    target_component_id: PropTypes.string.isRequired,
+
+    store_config: PropTypes.object.isRequired,
+    dispatch: PropTypes.func.isRequired
+}
+
+export const DC_Button_CP = connect(mapStateToProps)(_DC_Button_CP);
 
 // TODO: @misc component-buttons really should be in another file, as it will be used in every component
 // TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
@@ -123,17 +200,30 @@ class DC_Button extends React.Component {
     render() {
         if(this.state.deleted) return false;
 
-        // TODO: @misc This is messy
-        let className = "ui-button" + (this.props.type || "1");
+        // This is the "style" props for this component, if you need to access config_store, component_id, or anything
+        // else internal, use this.props instead
+        let style_props;
 
-        if(this.props.size) {
-            className += " " + this.props.size;
+        // Check if this component is in redux store
+        if( this.props.component_id !== "-1" && this.props.store_config &&
+            this.props.store_config.components[this.props.component_id] ) {
+            style_props = this.props.store_config.components[this.props.component_id].props || {};
+        } else {
+            // This component is not in the redux store, it's styles are probably in this.props
+            style_props = this.props;
+        }
+
+        // TODO: @misc This is messy
+        let className = "ui-button" + (style_props.type || "1");
+
+        if(style_props.size) {
+            className += " " + style_props.size;
         } else {
             className += " bigger";
         }
 
-        if(this.props.color) className += " " + this.props.color;
-        if(this.props.emphasis) className += " " + this.props.emphasis;
+        if(style_props.color) className += " " + style_props.color;
+        if(style_props.emphasis) className += " " + style_props.emphasis;
 
         return (
             <div
@@ -143,7 +233,7 @@ class DC_Button extends React.Component {
                 className={ className }
                 component_id={ this.props.component_id }
                 >
-                    { this.props.text || "button" }
+                    { style_props.text || "button" }
                 </button>
 
                 <div className="component-buttons">
@@ -170,9 +260,10 @@ DC_Button.propTypes = {
     color: PropTypes.string,
     emphasis: PropTypes.string,
 
-    component_id: PropTypes.string.isRequired,
+    store_config: PropTypes.object,
 
+    component_id: PropTypes.string.isRequired,
     dispatch: PropTypes.func.isRequired
 }
 
-export default connect()(DC_Button);
+export default connect(mapStateToProps)(DC_Button);

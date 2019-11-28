@@ -16,7 +16,6 @@ class ComponentEditMode extends React.Component {
         const ConfigPanel = getConfigPanelForComponent("customcomponent");
         return <ConfigPanel />;
     */
-
     render() {
         if(!this.props.store_editmode.active || !this.props.store_editmode.selected_component) return false;
 
@@ -28,11 +27,11 @@ class ComponentEditMode extends React.Component {
 
         switch(selected_component.type) {
             case "input":
-                return <DC_Input_CP />;
+                return <DC_Input_CP target_component_id={ selected_component_id } />;
             case "button":
-                return <DC_Button_CP />;
+                return <DC_Button_CP target_component_id={ selected_component_id } />;
             case "horizontal_container":
-                return <DC_Container_CP />;
+                return <DC_Container_CP target_component_id={ selected_component_id } />;
             default:
                 return false;
         }

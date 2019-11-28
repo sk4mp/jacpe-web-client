@@ -63,3 +63,31 @@
 #left-panel > .content .ui-input-with-name {
     margin-bottom: 18px;
 }
+
+/* Component editor */
+#left-panel > .content.component-editor > .bottom-panel {
+    position: absolute;
+    display: flex;
+    justify-content: space-between;
+
+    box-sizing: border-box;
+
+    bottom: 0;
+    left: 0;
+
+    width: 100%;
+
+    padding: 10px;
+
+    pointer-events: all;
+    transform: translateY(0);
+
+    box-shadow: -1px 0 7px rgba(0, 0, 0, 0.1);
+
+    transition: 0.2s;
+}
+
+#left-panel > .content.component-editor > .bottom-panel.hidden {
+    pointer-events: none;
+    transform: translateY(100%);
+}

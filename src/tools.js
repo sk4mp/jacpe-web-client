@@ -8,6 +8,8 @@ export function generateRandomId() {
     return Math.floor(Math.random() * 9999999999).toString();
 }
 
+// TODO: @high @performance It's a better idea to insted get a react component function, instead of a component.
+// Like this: `return DC_Button`, instead of `return <DC_Button id="..." />`
 export function createDraggableComponentFromType(type, panel_id) {
     const id = generateRandomId();
 
