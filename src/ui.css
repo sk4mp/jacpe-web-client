@@ -360,7 +360,7 @@ input.ui-input1::placeholder {
     background-color: var(--color-gray-disabled);
 }
 
-/* Components Container */
+/* Components Container (horizontal_container) */
 .ui-ccontainer {
     display: flex;
 

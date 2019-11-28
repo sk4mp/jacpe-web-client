@@ -112,6 +112,15 @@ class DC_Сontainer extends React.Component {
         // Get the component type from dataTransfer
         const component_type = e.dataTransfer.getData("text");
 
+        // Check if user is trying to drop a container inside a container
+        // TODO: @css maybe flash the container red to indicate that you can't do that
+        if(component_type === "horizontal_container") {
+            this.setState({ dragOver: false });
+
+            e.stopPropagation();
+            return false;
+        }
+
         // Create a new component from type
         const new_component = createDraggableComponentFromType(component_type);
 
