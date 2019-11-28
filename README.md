@@ -1,6 +1,8 @@
 # Just Another Control Panel Engine
 A control panel that lets you create your own panels and forms to reflect the data structure of your API.
 
+[Video demonstration (30 seconds, YouTube)](https://youtu.be/qHMpvPIf0lE)
+
 ⚠ The project is currently in the *very* early stages of development, so just a handful of features are implemented. ⚠
 
 ![Screenshot](https://i.gyazo.com/108741ad7ea2a7d5f5a0fda7cd357bce.gif)
@@ -15,6 +17,8 @@ A control panel that lets you create your own panels and forms to reflect the da
 * Make it look pretty.
 
 ### Usage
+Just clone this repository and run `yarn install` to install all the needed dependencies.
+
 For now, this is just a `create-react-app` project, so you can use default commands:
 
 * `yarn start` — Start the development server.
@@ -22,9 +26,9 @@ For now, this is just a `create-react-app` project, so you can use default comma
 
 Some other commands:
 
-* `yarn lint` — Lint the project (ESLint)
+* `yarn lint` — Lint js files (ESLint)
 
 ### Contributing
-If you found a bug or have any idea that you think fits this project, feel free to open an Issue.
+If you found a bug or have any idea that you think fits this project, don't be shy and open an Issue.
 
 You can also search this project by `TODO` keyword to find something interesting to work on.
