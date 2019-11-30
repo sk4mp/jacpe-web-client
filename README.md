@@ -1,7 +1,7 @@
 # Just Another Control Panel Engine
 A control panel that lets you create your own panels and forms to reflect the data structure of your API.
 
-[Video demonstration (30 seconds, YouTube)](https://youtu.be/qHMpvPIf0lE)
+[**Live demo**](https://sk4mp.github.io/jacpe-web-client), [Video demonstration (30 seconds, YouTube)](https://youtu.be/qHMpvPIf0lE)
 
 ⚠ The project is currently in the *very* early stages of development, so just a handful of features are implemented. ⚠
 

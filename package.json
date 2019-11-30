@@ -24,6 +24,10 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
+
+    "predeploy": "yarn run build",
+    "deploy": "gh-pages -d build",
+
     "lint": "eslint src/**"
   },
   "eslintConfig": {
@@ -41,5 +45,7 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "gh-pages": "^2.1.1"
+  }
 }
