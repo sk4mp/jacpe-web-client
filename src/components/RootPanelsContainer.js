@@ -18,23 +18,33 @@ class RootPanelContainer extends React.Component {
     createNewPanel() {
         const new_panel = config_create_panel(this.props.dispatch);
 
-        this.setState({ child_panels: [...this.state.child_panels, new_panel] })
+        this.setState({ child_panels: [...this.state.child_panels, new_panel] });
+
+        // Call parent's onClick
+        this.props.onClick && this.props.onClick();
     }
 
     render() {
         return (
-            <div className="root-panels-container">
+            <div className={"root-panels-container" + (this.props.hidden ? " hidden" : "")}>
                 { this.state.child_panels }
 
-                <div className="panel-placeholder" onClick={ this.createNewPanel } >
-                    <div className="add-icon"><i className="fas fa-plus"></i></div>
+                <div className="panel-placeholder"
+                onClick={ this.createNewPanel } >
+                    { this.props.new_contaier
+                    ? <div className="add-icon"><i className="fas fa-chevron-right"></i></div>
+                    : <div className="add-icon"><i className="fas fa-plus"></i></div> }
                 </div>
             </div>
-        )
+        );
     }
 }
 
 RootPanelContainer.propTypes = {
+    onClick: PropTypes.func,
+    new_contaier: PropTypes.bool,
+    hidden: PropTypes.bool,
+
     dispatch: PropTypes.func.isRequired
 }
 

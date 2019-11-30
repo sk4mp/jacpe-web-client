@@ -13,9 +13,21 @@
     width: 100%;
 
     margin-right: 8px;
+
+    pointer-events: all;
+
+    transition: 0.2s;
 }
 
-#router > .route.dynamic-page > .root-panels-container:nth-last-child(2) {
+#router > .route.dynamic-page > .root-panels-container.hidden {
+    width: 0px;
+    margin-right: 0px;
+    pointer-events: none;
+}
+
+/* TODO: @css this is a bit of a hack */
+#router > .route.dynamic-page:not(.edit-mode) > .root-panels-container:nth-last-child(3),
+#router > .route.dynamic-page.edit-mode > .root-panels-container:nth-last-child(2) {
     margin-right: 0;
 }
 

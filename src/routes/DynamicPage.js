@@ -9,11 +9,36 @@ import DraggableComponentsDrawer from "../components/DraggableComponentsDrawer";
 import "./DynamicPage.css";
 
 class DynamicPage extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            root_panel_containers_count: 1
+        }
+
+        this.createRootContainer = this.createRootContainer.bind(this);
+    }
+
+    createRootContainer() {
+        this.setState({ root_panel_containers_count: this.state.root_panel_containers_count + 1 })
+    }
+
     render() {
+        const containers = [];
+
+        for(let i = 0; i < this.state.root_panel_containers_count; i++) {
+            containers.push(<RootPanelsContainer key={ i } />);
+        }
+
         return (
             <div className={ "route dynamic-page" + (this.props.store_editmode.active ? " edit-mode" : "") }>
-                <RootPanelsContainer />
-                <RootPanelsContainer />
+                { containers }
+
+                <RootPanelsContainer
+                key={ this.state.root_panel_containers_count + 1 }
+                new_contaier
+                hidden={ !this.props.store_editmode.active }
+                onClick={ this.createRootContainer } />
 
                 <DraggableComponentsDrawer />
             </div>
