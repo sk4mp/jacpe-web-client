@@ -363,6 +363,7 @@ input.ui-input1::placeholder {
 /* Components Container (horizontal_container) */
 .ui-ccontainer {
     display: flex;
+    flex-wrap: wrap;
 
     /* TODO: @css maybe we should use `flex-end`, it looks nicer IMO */
     align-items: center;
@@ -379,11 +380,11 @@ input.ui-input1::placeholder {
 }
 
 .ui-ccontainer > * {
-    margin: 0 8px 0 0 !important;
+    margin: 0 8px 8px 0 !important;
 }
 
 #router > .route.dynamic-page.edit-mode .ui-ccontainer {
-    padding: 10px;
+    padding: 10px 10px 2px 10px;
 
     border: 2px dashed var(--color-blue2);
     border-radius: 5px;
