@@ -3,13 +3,10 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
+import DraggableComponent from "../components/DraggableComponent";
+
 import { createDraggableComponentFromType } from "../tools";
-import {
-    config_component_edit_children,
-    config_edit_component,
-    editmode_select_component,
-    config_delete_component }
-from "../actions";
+import { config_component_edit_children, config_edit_component} from "../actions";
 
 // Left panel config for this component
 export class DC_Container_CP extends React.Component {
@@ -27,19 +24,14 @@ export class DC_Container_CP extends React.Component {
     }
 }
 
-// TODO: @misc component-buttons really should be in another file, as it will be used in every component
-// TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
 class DC_Сontainer extends React.Component {
     constructor(props) {
         super(props);
 
         this.state = {
             dragOver: false,
-            deleted: false,
             child_components: []
         }
-
-        this.deleteComponent = this.deleteComponent.bind(this);
 
         this.onDragEnter = this.onDragEnter.bind(this);
         this.onDragLeave = this.onDragLeave.bind(this);
@@ -48,9 +40,6 @@ class DC_Сontainer extends React.Component {
     }
 
     shouldComponentUpdate(next_props, next_state) {
-        // Deleted
-        if(next_state.deleted !== this.state.deleted) return true;
-
         // On child_components update (happens when a component changes in `config` redux store)
         if(next_state.child_components !== this.state.child_components) return true;
 
@@ -161,20 +150,10 @@ class DC_Сontainer extends React.Component {
         return false;
     }
 
-    deleteComponent() {
-        config_delete_component(this.props.component_id, this.props.dispatch);
-        this.setState({ deleted: true });
-    }
-
     render() {
-        if(this.state.deleted) return false;
-
         return (
-            <div
-            className="ui-draggable-component"
-            >
+            <DraggableComponent component_id={ this.props.component_id }>
                 <div
-                component_id={ this.props.component_id }
                 className={ "ui-ccontainer" + (this.state.dragOver ? " drag-over" : "") }
 
                 onDragEnter={ this.onDragEnter }
@@ -184,20 +163,7 @@ class DC_Сontainer extends React.Component {
                 >
                     { this.state.child_components }
                 </div>
-
-                <div className="component-buttons">
-                    <div
-                    className="button"
-                    onClick={ () => editmode_select_component(this.props.component_id, this.props.dispatch) }>
-                        <i className="fas fa-sliders-h"></i>
-                    </div>
-                    <div
-                    className="button red"
-                    onClick={ this.deleteComponent }>
-                        <i className="fas fa-times"></i>
-                    </div>
-                </div>
-            </div>
+            </DraggableComponent>
         );
     }
 }

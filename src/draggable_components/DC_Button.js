@@ -3,9 +3,11 @@ import PropTypes from "prop-types";
 
 import { connect } from "react-redux";
 
+import DraggableComponent from "../components/DraggableComponent";
+
 import ComponentTypeSelector, { Section, Option } from "../components/ComponentTypeSelector";
 
-import { editmode_select_component, config_delete_component, config_edit_component } from "../actions";
+import { config_edit_component } from "../actions";
 
 // This is used for both components
 function mapStateToProps(state) {
@@ -141,7 +143,8 @@ class _DC_Button_CP extends React.Component {
                         <Option value="bigger" text="Default" />
                         <Option value="big" text="Big" />
                     </Section>
-                    <Section key_name="emphasis" default="normal" name="Type" icon={ <i className="fas fa-cubes"></i> }>
+                    <Section key_name="emphasis" default="normal" name="Type"
+                    icon={ <i className="fas fa-swatchbook"></i> }>
                         <Option value="normal" text="Normal" custom_icon={
                             <div style={ this.icon_type_normal }>A</div>
                         } />
@@ -179,27 +182,8 @@ _DC_Button_CP.propTypes = {
 
 export const DC_Button_CP = connect(mapStateToProps)(_DC_Button_CP);
 
-// TODO: @misc component-buttons really should be in another file, as it will be used in every component
-// TODO: @misc we should also do something about deleteComponent function, it will be used in every component too
 class DC_Button extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            deleted: false
-        }
-
-        this.deleteComponent = this.deleteComponent.bind(this);
-    }
-
-    deleteComponent() {
-        config_delete_component(this.props.component_id, this.props.dispatch);
-        this.setState({ deleted: true });
-    }
-
     render() {
-        if(this.state.deleted) return false;
-
         // This is the "style" props for this component, if you need to access config_store, component_id, or anything
         // else internal, use this.props instead
         let style_props;
@@ -226,29 +210,13 @@ class DC_Button extends React.Component {
         if(style_props.emphasis) className += " " + style_props.emphasis;
 
         return (
-            <div
-            className="ui-draggable-component"
-            >
+            <DraggableComponent component_id={ this.props.component_id }>
                 <button
                 className={ className }
-                component_id={ this.props.component_id }
                 >
                     { style_props.text || "button" }
                 </button>
-
-                <div className="component-buttons">
-                    <div
-                    className="button"
-                    onClick={ () => editmode_select_component(this.props.component_id, this.props.dispatch) }>
-                        <i className="fas fa-sliders-h"></i>
-                    </div>
-                    <div
-                    className="button red"
-                    onClick={ this.deleteComponent }>
-                        <i className="fas fa-times"></i>
-                    </div>
-                </div>
-            </div>
+            </DraggableComponent>
         )
     }
 }
