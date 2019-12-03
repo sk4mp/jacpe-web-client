@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "565ce1039ecca697d6fe9190f947419c",
+    "revision": "118c511669116340dc869f20bbf35d8f",
     "url": "/jacpe-web-client/index.html"
   },
   {
-    "revision": "61a9317c9060a5234e04",
-    "url": "/jacpe-web-client/static/css/main.96be4d97.chunk.css"
+    "revision": "46dfd7eac14caf6d39ab",
+    "url": "/jacpe-web-client/static/css/main.c1a0395d.chunk.css"
   },
   {
-    "revision": "5a437d09f7c65c1e14b2",
-    "url": "/jacpe-web-client/static/js/2.4f4657bd.chunk.js"
+    "revision": "b85fb6f8abb6e3df9df3",
+    "url": "/jacpe-web-client/static/js/2.561933ba.chunk.js"
   },
   {
-    "revision": "61a9317c9060a5234e04",
-    "url": "/jacpe-web-client/static/js/main.d8927c4f.chunk.js"
+    "revision": "46dfd7eac14caf6d39ab",
+    "url": "/jacpe-web-client/static/js/main.41b4a7b0.chunk.js"
   },
   {
     "revision": "597ae6d1f05fe0c309f0",
