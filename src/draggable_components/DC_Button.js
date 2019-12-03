@@ -4,10 +4,9 @@ import PropTypes from "prop-types";
 import { connect } from "react-redux";
 
 import DraggableComponent from "../components/DraggableComponent";
+import DraggableComponentConfigPanel from "../components/DraggableComponentConfigPanel";
 
 import ComponentTypeSelector, { Section, Option } from "../components/ComponentTypeSelector";
-
-import { config_edit_component } from "../actions";
 
 // This is used for both components
 function mapStateToProps(state) {
@@ -24,8 +23,7 @@ class _DC_Button_CP extends React.Component {
         const component_props = props.store_config.components[props.target_component_id].props || {};
 
         this.state = {
-            component_props,
-            last_component_props: component_props
+            component_props
         }
 
         const icon_color_style = {
@@ -77,8 +75,6 @@ class _DC_Button_CP extends React.Component {
             fontWeight: 500,
         }
 
-        this.save = this.save.bind(this);
-
         this.onInputChange = this.onInputChange.bind(this);
         this.onTypeSelectorChange = this.onTypeSelectorChange.bind(this);
     }
@@ -88,7 +84,7 @@ class _DC_Button_CP extends React.Component {
             // Different component was selected, update the props
             const component_props = this.props.store_config.components[this.props.target_component_id].props || {};
 
-            this.setState({ component_props, last_component_props: component_props });
+            this.setState({ component_props });
         }
     }
 
@@ -104,20 +100,14 @@ class _DC_Button_CP extends React.Component {
         this.setState({ component_props: { ...this.state.component_props, ...ts_props } })
     }
 
-    save() {
-        const edited_component = this.props.store_config.components[this.props.target_component_id];
-
-        edited_component.props = { ...edited_component.props, ...this.state.component_props };
-
-        // Save the component in `config` redux store
-        config_edit_component(edited_component, this.props.dispatch);
-
-        this.setState({ last_component_props: this.state.component_props });
-    }
-
     render() {
         return (
-            <div className="content component-editor">
+            <DraggableComponentConfigPanel
+            store_config={ this.props.store_config }
+            dispatch={ this.props.dispatch }
+
+            component_props={ this.state.component_props }
+            target_component_id={ this.props.target_component_id }>
                 <div className="component-intro-block">
                     <div className="name">Button</div>
                     <div className="description">Used mainly for API calls.</div>
@@ -160,15 +150,7 @@ class _DC_Button_CP extends React.Component {
                         <Option value="red" text="Red" custom_icon={ <div style={ this.icon_color_red }></div> } />
                     </Section>
                 </ComponentTypeSelector>
-
-                <div className={"bottom-panel" +
-                (this.state.last_component_props === this.state.component_props ? " hidden" : "")}>
-                    <div></div>
-                    <div>
-                        <button onClick={ this.save } className="ui-button1 big low-emp">save</button>
-                    </div>
-                </div>
-            </div>
+            </DraggableComponentConfigPanel>
         );
     }
 }
@@ -231,7 +213,6 @@ DC_Button.propTypes = {
     store_config: PropTypes.object,
 
     component_id: PropTypes.string.isRequired,
-    dispatch: PropTypes.func.isRequired
 }
 
 export default connect(mapStateToProps)(DC_Button);

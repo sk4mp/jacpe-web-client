@@ -85,8 +85,6 @@ export function config_assign_component(component_el, component_type, panel_id, 
         panel_id: panel_id
     }
 
-    console.log(component_el.props);
-
     // TODO: @misc not sure if this is the best way to do this
     dispatch({ type: CONFIG_EDIT_COMPONENT, component_object });
     dispatch({ type: CONFIG_PANEL_ADD_COMPONENT, panel_id, component_id: component_el.props.component_id });
