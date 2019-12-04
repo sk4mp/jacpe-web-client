@@ -15,8 +15,6 @@
     margin-right: 8px;
 
     pointer-events: all;
-
-    transition: 0.2s;
 }
 
 #router > .route.dynamic-page > .root-panels-container.hidden {
@@ -27,6 +25,11 @@
 
 #router > .route.dynamic-page > .root-panels-container.new_container {
     width: fit-content;
+}
+
+#router > .route.dynamic-page > .root-panels-container.new_container:first-child,
+#router > .route.dynamic-page > .root-panels-container.new_container:first-child > .panel-placeholder {
+    width: 100%;
 }
 
 #router > .route.dynamic-page > .root-panels-container.new_container > .panel-placeholder {
@@ -52,7 +55,7 @@
     height: 200px;
     border-radius: 5px;
 
-    transition: all 0.2s ease-in-out, color 0s;
+    transition: all 0.2s ease-in-out, color 0s, width 0s;
 }
 
 #router > .route.dynamic-page.edit-mode .panel-placeholder {

@@ -120,6 +120,9 @@ class DraggablePanel extends React.Component {
 
     deletePanel() {
         config_delete_panel(this.props.panel_id, this.props.dispatch);
+
+        // Call parent's onDelete
+        this.props.onDelete && this.props.onDelete(this.props.panel_id);
     }
 
     render() {
@@ -154,6 +157,7 @@ class DraggablePanel extends React.Component {
 
 DraggablePanel.propTypes = {
     panel_id: PropTypes.string.isRequired,
+    onDelete: PropTypes.func,
 
     store_config: PropTypes.object.isRequired,
     dispatch: PropTypes.func.isRequired
