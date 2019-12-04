@@ -36,7 +36,7 @@ class DynamicPage extends React.Component {
 
                 <RootPanelsContainer
                 key={ this.state.root_panel_containers_count + 1 }
-                new_contaier
+                new_container
                 hidden={ !this.props.store_editmode.active }
                 onClick={ this.createRootContainer } />
 

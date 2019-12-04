@@ -26,12 +26,14 @@ class RootPanelContainer extends React.Component {
 
     render() {
         return (
-            <div className={"root-panels-container" + (this.props.hidden ? " hidden" : "")}>
+            <div
+            className={"root-panels-container" + (this.props.hidden ? " hidden" : "")
+            + (this.props.new_container ? " new_container" : "")}>
                 { this.state.child_panels }
 
                 <div className="panel-placeholder"
                 onClick={ this.createNewPanel } >
-                    { this.props.new_contaier
+                    { this.props.new_container
                     ? <div className="add-icon"><i className="fas fa-chevron-right"></i></div>
                     : <div className="add-icon"><i className="fas fa-plus"></i></div> }
                 </div>
@@ -42,7 +44,7 @@ class RootPanelContainer extends React.Component {
 
 RootPanelContainer.propTypes = {
     onClick: PropTypes.func,
-    new_contaier: PropTypes.bool,
+    new_container: PropTypes.bool,
     hidden: PropTypes.bool,
 
     dispatch: PropTypes.func.isRequired

@@ -25,6 +25,14 @@
     pointer-events: none;
 }
 
+#router > .route.dynamic-page > .root-panels-container.new_container {
+    width: fit-content;
+}
+
+#router > .route.dynamic-page > .root-panels-container.new_container > .panel-placeholder {
+    width: 100px;
+}
+
 /* TODO: @css this is a bit of a hack */
 #router > .route.dynamic-page:not(.edit-mode) > .root-panels-container:nth-last-child(3),
 #router > .route.dynamic-page.edit-mode > .root-panels-container:nth-last-child(2) {
